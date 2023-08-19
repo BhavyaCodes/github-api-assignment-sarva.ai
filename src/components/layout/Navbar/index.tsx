@@ -1,36 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { FormEventHandler, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useUserSearchText } from "@/context/userProfile.context";
 
 const Navbar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [searchText, setSearchText] = useState<string>("");
+  const [, setSearchText] = useUserSearchText();
 
   const handleSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
     const text = inputRef.current?.value;
 
     if (text) {
       setSearchText(text);
+      inputRef.current.value = "";
     }
   };
-
-  const { data, error, isLoading } = useQuery<unknown | [string]>({
-    queryKey: ["users", searchText],
-    enabled: !!searchText,
-    queryFn: () =>
-      axios
-        .get(`https://api.github.com/users/${searchText}`, {
-          headers: {
-            Authorization: "Bearer " + process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
-          },
-        })
-        .then((res) => res.data),
-    onSettled(): void {
-      setSearchText("");
-    },
-    retry: false,
-  });
 
   return (
     <div className="navbar bg-base-300 max-h-16 px-4">
