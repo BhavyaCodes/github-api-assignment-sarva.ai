@@ -38,6 +38,9 @@ export type Repository = {
   language: null | string;
   stargazers_count: number;
   name: string;
+  forks: number;
+  html_url: string;
+  description: null | string;
 };
 
 export type Follower = {
