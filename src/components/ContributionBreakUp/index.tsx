@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ChartData } from "chart.js";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Radar } from "react-chartjs-2";
 
@@ -11,6 +12,9 @@ type GqlResponse = {
 };
 
 const ContributionBreakUp = () => {
+  const router = useRouter();
+  const username = (router.query.username as string) || "bhavyacodes";
+
   const [data, setData] = useState<null | GqlResponse>(null);
 
   useEffect(() => {
@@ -19,7 +23,7 @@ const ContributionBreakUp = () => {
         "https://api.github.com/graphql",
         {
           query: `query {
-            user(login: "bhavyacodes") {
+            user(login: "${username}") {
               contributionsCollection {
 								pullRequestContributions {
 									totalCount
@@ -44,7 +48,7 @@ const ContributionBreakUp = () => {
       .then((data: GqlResponse) => {
         setData(data);
       });
-  }, []);
+  }, [username]);
   console.log(data);
 
   if (!data) {

@@ -1,8 +1,9 @@
 - [x] Serverside rendering (getInitialProps)
   - [x] /user/[username] route
   - [x] index page
+- [ ] css
 - [ ] github auth - display logged in user's profile
-- [ ] show contribution distribution
+- [x] show contribution distribution
 
 <!-- {
   viewer {

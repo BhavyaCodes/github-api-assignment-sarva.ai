@@ -8,6 +8,7 @@ import loader from "@/assets/mona-loading-default.gif";
 import RepositoryList from "@/components/RepositoryList";
 import { useRouter } from "next/router";
 import { NextPageContext } from "next";
+import ContributionBreakUp from "@/components/ContributionBreakUp";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -214,6 +215,7 @@ export default function UserProfilePage({
                 />
               </>
             )} */}
+            <ContributionBreakUp />
           </div>
         </div>
       </main>
