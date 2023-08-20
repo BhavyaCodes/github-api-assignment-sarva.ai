@@ -3,6 +3,9 @@ import Layout from "@/components/layout";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { UserSearchTextProvider } from "@/context/userProfile.context";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { UserProfile } from "@/types";
 import loader from "@/assets/mona-loading-default.gif";
+import PopularLanguagesChart from "@/components/PopularLanguagesChart";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,18 @@ export default function Home() {
 
     retry: false,
   });
+
+  const reposQuery = useQuery<{ id: number; language: null | string }[]>({
+    queryKey: ["users", userSearchText, "repo"],
+    enabled: !!data?.login,
+    queryFn: () =>
+      axios
+        .get(`https://api.github.com/users/${data?.login}/repos?per_page=999`)
+        .then((res) => res.data),
+    retry: false,
+  });
+
+  console.log(reposQuery.data);
 
   if (isLoading) {
     return (
@@ -166,7 +179,11 @@ export default function Home() {
               )}
             </div>
           </div>
-          <div className="basis-9/12 grow bg-red-500">asfasf</div>
+          <div className="basis-9/12 grow">
+            {reposQuery.data && (
+              <PopularLanguagesChart repoData={reposQuery.data} />
+            )}
+          </div>
         </div>
       </main>
     </div>
