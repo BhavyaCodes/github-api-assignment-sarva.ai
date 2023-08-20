@@ -39,3 +39,9 @@ export type Repository = {
   stargazers_count: number;
   name: string;
 };
+
+export type Follower = {
+  avatar_url: string;
+  id: number;
+  login: string;
+};

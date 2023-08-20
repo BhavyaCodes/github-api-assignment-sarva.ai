@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useUserSearchText } from "@/context/userProfile.context";
 import { useQuery } from "@tanstack/react-query";
@@ -7,6 +6,8 @@ import { Repository, UserProfile } from "@/types";
 import loader from "@/assets/mona-loading-default.gif";
 import PopularLanguagesChart from "@/components/PopularLanguagesChart";
 import { PopularRepos } from "@/components/PopularRepos";
+
+import FollowersList from "@/components/FollowersList";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -179,7 +180,9 @@ export default function Home() {
             </div>
           </div>
           <div className="basis-9/12 grow">
-            {reposQuery.data && (
+            {data.login && <FollowersList username={data.login} />}
+
+            {/* {reposQuery.data && (
               <>
                 <PopularRepos
                   repoData={reposQuery.data}
@@ -190,7 +193,7 @@ export default function Home() {
                   username={data.login}
                 />
               </>
-            )}
+            )} */}
           </div>
         </div>
       </main>
