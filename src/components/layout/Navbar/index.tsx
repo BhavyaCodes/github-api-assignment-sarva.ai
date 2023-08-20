@@ -78,14 +78,23 @@ const Navbar = () => {
             className="modal-box mt-4"
             onSubmit={handleSubmit}
           >
-            <input
-              type="text"
-              className="input input-bordered w-24 md:w-auto"
-              ref={inputRef}
-            />
-            <button className="btn" type="submit">
-              Search
-            </button>
+            <div className="join">
+              <input
+                type="text"
+                className="input input-bordered join-item w-24 md:w-auto"
+                ref={inputRef}
+                placeholder="Search username"
+              />
+
+              {/* <button className="btn" type="submit">
+                Search
+              </button> */}
+              <div className="indicator">
+                <button type="submit" className="btn join-item">
+                  Search
+                </button>
+              </div>
+            </div>
           </form>
           <form method="dialog" className="modal-backdrop">
             <button>close</button>
