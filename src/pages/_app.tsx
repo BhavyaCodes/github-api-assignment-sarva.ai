@@ -13,6 +13,10 @@ import {
   BarElement,
   CategoryScale,
   Title,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
 } from "chart.js";
 
 ChartJS.register(
@@ -22,7 +26,11 @@ ChartJS.register(
   LinearScale,
   BarElement,
   CategoryScale,
-  Title
+  Title,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler
 );
 
 export default function App({ Component, pageProps }: AppProps) {

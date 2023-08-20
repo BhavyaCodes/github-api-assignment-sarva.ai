@@ -1,7 +1,18 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import { ChartData } from "chart.js";
+import React, { useEffect, useState } from "react";
+import { Radar } from "react-chartjs-2";
+
+type GqlResponse = {
+  issueContributions: { totalCount: number };
+  pullRequestContributions: { totalCount: number };
+  totalCommitContributions: number;
+  totalPullRequestReviewContributions: number;
+};
 
 const ContributionBreakUp = () => {
+  const [data, setData] = useState<null | GqlResponse>(null);
+
   useEffect(() => {
     axios
       .post(
@@ -9,7 +20,6 @@ const ContributionBreakUp = () => {
         {
           query: `query {
             user(login: "bhavyacodes") {
-              name
               contributionsCollection {
 								pullRequestContributions {
 									totalCount
@@ -29,9 +39,63 @@ const ContributionBreakUp = () => {
           },
         }
       )
-      .then((res) => console.log(res.data));
-  });
-  return <div>ContributionBreakUp</div>;
+
+      .then((res) => res.data.data.user.contributionsCollection)
+      .then((data: GqlResponse) => {
+        setData(data);
+      });
+  }, []);
+  console.log(data);
+
+  if (!data) {
+    return;
+  }
+
+  const chartJsData: ChartData<"radar"> = {
+    labels: ["Issues", "Commits", "Pull Requests", "Pull Request Reviews"],
+    datasets: [
+      {
+        label: "# of contributions",
+        data: [
+          data.issueContributions.totalCount,
+          data.totalCommitContributions,
+          data.pullRequestContributions.totalCount,
+          data.totalPullRequestReviewContributions,
+        ],
+      },
+    ],
+  };
+
+  return (
+    <div>
+      <Radar
+        data={chartJsData}
+        options={{
+          plugins: {
+            colors: {
+              enabled: true,
+            },
+            legend: {
+              display: false,
+              labels: {},
+            },
+            filler: {},
+            decimation: {},
+          },
+          scales: {
+            r: {
+              backgroundColor: "#fff",
+              // grid: {
+              //   color: "green",
+              // },
+            },
+          },
+          borderColor: "#fff",
+          backgroundColor: "#555",
+        }}
+      />
+    </div>
+  );
 };
 
 export default ContributionBreakUp;
