@@ -25,7 +25,7 @@ const FollowersList: FC<{ username: string }> = ({ username }) => {
     return null;
   }
   return (
-    <div>
+    <div className="h-60 overflow-auto">
       {followersQuery.data.map((follower) => (
         <Follower key={follower.id} follower={follower} />
       ))}
