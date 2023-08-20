@@ -15,15 +15,14 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
       ) : (
         <>
           Not signed in <br />
-          <a
-            href="/api/auth/signin"
+          <button
             onClick={(e) => {
               e.preventDefault();
               signIn();
             }}
           >
             Sign in
-          </a>
+          </button>
         </>
       )}
       <Navbar />
