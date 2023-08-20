@@ -41,7 +41,7 @@ const RepositoryList: FC<{ username: string }> = ({ username }) => {
   }
 
   return (
-    <div>
+    <div className="h-60 overflow-auto">
       {inifiniteRepositoryQuery.data.pages
         .flatMap((data) => data)
         .map((repo) => (
