@@ -4,6 +4,8 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { UserSearchTextProvider } from "@/context/userProfile.context";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { SessionProvider } from "next-auth/react";
+
 import {
   Chart as ChartJS,
   ArcElement,
@@ -33,18 +35,23 @@ ChartJS.register(
   Filler
 );
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const queryClient = new QueryClient({
     defaultOptions: { queries: { staleTime: 60000 } },
   });
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <UserSearchTextProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </UserSearchTextProvider>
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <UserSearchTextProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </UserSearchTextProvider>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }

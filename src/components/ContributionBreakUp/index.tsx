@@ -49,7 +49,6 @@ const ContributionBreakUp = () => {
         setData(data);
       });
   }, [username]);
-  console.log(data);
 
   if (!data) {
     return;
