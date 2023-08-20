@@ -9,7 +9,6 @@ const RepositoryList: FC<{ username: string }> = ({ username }) => {
 
   const inifiniteRepositoryQuery = useInfiniteQuery<Repository[]>({
     queryKey: ["users", "repositories-infinite", username],
-    // enabled: !!data?.login,
     queryFn: ({ pageParam = 1 }) =>
       axios
         .get(`https://api.github.com/users/${username}/repos`, {
@@ -35,7 +34,6 @@ const RepositoryList: FC<{ username: string }> = ({ username }) => {
     },
   });
 
-  // console.log(first);
   if (!inifiniteRepositoryQuery.data) {
     return null;
   }

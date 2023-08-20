@@ -1,17 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { FormEventHandler, useEffect, useRef, useState } from "react";
+import { FormEventHandler, useEffect, useRef } from "react";
 import axios from "axios";
-import { useUserSearchText } from "@/context/userProfile.context";
+
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [, setSearchText] = useUserSearchText();
+  const router = useRouter();
+  // const [, setSearchText] = useUserSearchText();
 
   const handleSubmit: FormEventHandler = (e) => {
     const text = inputRef.current?.value;
 
     if (text) {
-      setSearchText(text);
+      // setSearchText(text);
+      router.push(`/user/${text}`);
       inputRef.current.value = "";
     }
   };

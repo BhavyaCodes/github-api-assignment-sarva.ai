@@ -4,23 +4,25 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Repository, UserProfile } from "@/types";
 import loader from "@/assets/mona-loading-default.gif";
-import PopularLanguagesChart from "@/components/PopularLanguagesChart";
-import { PopularRepos } from "@/components/PopularRepos";
 
-import FollowersList from "@/components/FollowersList";
 import RepositoryList from "@/components/RepositoryList";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function UserProfilePage() {
+  const router = useRouter();
+
+  const userSearchText = router.query.username;
+
   // const [userSearchText] = useUserSearchText();
 
   const { data, error, isFetching, isLoading } = useQuery<UserProfile>({
-    queryKey: ["users", "bhavyacodes"],
-    // enabled: !!userSearchText,
+    queryKey: ["users", userSearchText],
+    enabled: !!userSearchText,
     queryFn: () =>
       axios
-        .get(`https://api.github.com/users/bhavyacodes`, {
+        .get(`https://api.github.com/users/${userSearchText}`, {
           headers: {
             Authorization: "Bearer " + process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
           },
@@ -31,7 +33,7 @@ export default function Home() {
   });
 
   const reposQuery = useQuery<Repository[]>({
-    queryKey: ["users", "bhavyacodes", "repo"],
+    queryKey: ["users", userSearchText, "repo"],
     enabled: !!data?.login,
     queryFn: () =>
       axios
