@@ -10,6 +10,7 @@ import { PopularRepos } from "@/components/PopularRepos";
 import FollowersList from "@/components/FollowersList";
 import RepositoryList from "@/components/RepositoryList";
 import { NextPageContext } from "next";
+import ContributionBreakUp from "@/components/ContributionBreakUp";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -211,6 +212,7 @@ export default function Home({ userProfile }: { userProfile: UserProfile }) {
                 />
               </>
             )} */}
+            <ContributionBreakUp />
           </div>
         </div>
       </main>
