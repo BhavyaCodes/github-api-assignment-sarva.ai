@@ -10,8 +10,21 @@ export const authOptions: AuthOptions = {
     // ...add more providers here
   ],
   callbacks: {
-    async jwt({ token }) {
-      return token;
+    async jwt({ token, user }) {
+      // console.log({ ...token, ...user });
+      return { ...token, ...user };
+      // {
+      //   name: 'Bhavya Tomar',
+      //   email:
+      //   picture: 'https://avatars.githubusercontent.com/u/58269749?v=4',
+      //   sub:
+      //   login: 'BhavyaCodes',
+      //   id:
+      //   image: 'https://avatars.githubusercontent.com/u/58269749?v=4',
+      //   iat: 1692573419,
+      //   exp: 1695165419,
+      //   jti:
+      // }
     },
   },
 };
