@@ -1,4 +1,5 @@
-- [ ] Serverside rendering (getInitialProps)
+- [x] Serverside rendering (getInitialProps)
   - [x] /user/[username] route
-  - [ ] index page
+  - [x] index page
 - [ ] github auth - display logged in user's profile
+- [ ] show contribution distribution

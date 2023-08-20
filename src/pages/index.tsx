@@ -9,13 +9,15 @@ import { PopularRepos } from "@/components/PopularRepos";
 
 import FollowersList from "@/components/FollowersList";
 import RepositoryList from "@/components/RepositoryList";
+import { NextPageContext } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ userProfile }: { userProfile: UserProfile }) {
   // const [userSearchText] = useUserSearchText();
 
   const { data, error, isFetching, isLoading } = useQuery<UserProfile>({
+    initialData: userProfile,
     queryKey: ["users", "bhavyacodes"],
     // enabled: !!userSearchText,
     queryFn: () =>
@@ -215,3 +217,16 @@ export default function Home() {
     </div>
   );
 }
+
+Home.getInitialProps = async (ctx: NextPageContext) => {
+  const initialUserData = await axios
+    .get<UserProfile>(`https://api.github.com/users/bhavyacodes`, {
+      headers: {
+        Authorization: "Bearer " + process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
+      },
+    })
+    .then((res) => res.data);
+  return {
+    userProfile: initialUserData,
+  };
+};
