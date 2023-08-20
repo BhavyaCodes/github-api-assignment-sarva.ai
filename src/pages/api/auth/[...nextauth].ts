@@ -10,6 +10,12 @@ export const authOptions: AuthOptions = {
     // ...add more providers here
   ],
   callbacks: {
+    session: async ({ session, token }) => {
+      // console.log("@@@@@@@@@@@@");
+      // console.log(token);
+      session.user = { ...token };
+      return session;
+    },
     async jwt({ token, user }) {
       // console.log({ ...token, ...user });
       return { ...token, ...user };

@@ -12,6 +12,8 @@ import RepositoryList from "@/components/RepositoryList";
 import { NextPageContext } from "next";
 import ContributionBreakUp from "@/components/ContributionBreakUp";
 
+import { getSession } from "next-auth/react";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ userProfile }: { userProfile: UserProfile }) {
@@ -221,6 +223,8 @@ export default function Home({ userProfile }: { userProfile: UserProfile }) {
 }
 
 Home.getInitialProps = async (ctx: NextPageContext) => {
+  const session = await getSession(ctx);
+
   const initialUserData = await axios
     .get<UserProfile>(`https://api.github.com/users/bhavyacodes`, {
       headers: {

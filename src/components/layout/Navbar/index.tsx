@@ -3,6 +3,7 @@ import { FormEventHandler, useEffect, useRef } from "react";
 import axios from "axios";
 
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Navbar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -41,9 +42,11 @@ const Navbar = () => {
     <div className="navbar bg-base-300 max-h-16 px-4">
       <div className="flex-1">
         {/* <a className="btn btn-ghost normal-case text-xl">daisyUI</a> */}
-        <div className="w-10 rounded-full">
-          <img src="/github-icon.svg" alt="logo" className="invert" />
-        </div>
+        <Link href={"/"}>
+          <div className="w-10 rounded-full">
+            <img src="/github-icon.svg" alt="logo" className="invert" />
+          </div>
+        </Link>
       </div>
       <div className="flex-none gap-2">
         <div className="form-control">
