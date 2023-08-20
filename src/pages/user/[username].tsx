@@ -7,33 +7,36 @@ import loader from "@/assets/mona-loading-default.gif";
 
 import RepositoryList from "@/components/RepositoryList";
 import { useRouter } from "next/router";
+import { NextPageContext } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function UserProfilePage() {
+export default function UserProfilePage({
+  userProfile,
+}: {
+  userProfile: UserProfile;
+}) {
   const router = useRouter();
 
-  const userSearchText = router.query.username;
+  const username = router.query.username;
 
-  // const [userSearchText] = useUserSearchText();
-
-  const { data, error, isFetching, isLoading } = useQuery<UserProfile>({
-    queryKey: ["users", userSearchText],
-    enabled: !!userSearchText,
+  const { data, error, isLoading } = useQuery<UserProfile>({
+    initialData: userProfile,
+    queryKey: ["users", username],
+    enabled: !!username,
     queryFn: () =>
       axios
-        .get(`https://api.github.com/users/${userSearchText}`, {
+        .get(`https://api.github.com/users/${username}`, {
           headers: {
             Authorization: "Bearer " + process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
           },
         })
         .then((res) => res.data),
-
     retry: false,
   });
 
   const reposQuery = useQuery<Repository[]>({
-    queryKey: ["users", userSearchText, "repo"],
+    queryKey: ["users", username, "repo"],
     enabled: !!data?.login,
     queryFn: () =>
       axios
@@ -217,3 +220,17 @@ export default function UserProfilePage() {
     </div>
   );
 }
+
+UserProfilePage.getInitialProps = async (ctx: NextPageContext) => {
+  const username = ctx.query.username;
+  const initialUserData = await axios
+    .get<UserProfile>(`https://api.github.com/users/${username}`, {
+      headers: {
+        Authorization: "Bearer " + process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
+      },
+    })
+    .then((res) => res.data);
+  return {
+    userProfile: initialUserData,
+  };
+};
