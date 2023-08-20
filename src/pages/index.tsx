@@ -37,8 +37,6 @@ export default function Home() {
     retry: false,
   });
 
-  console.log(reposQuery.data);
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center">
@@ -181,7 +179,10 @@ export default function Home() {
           </div>
           <div className="basis-9/12 grow">
             {reposQuery.data && (
-              <PopularLanguagesChart repoData={reposQuery.data} />
+              <PopularLanguagesChart
+                repoData={reposQuery.data}
+                username={data.login}
+              />
             )}
           </div>
         </div>
