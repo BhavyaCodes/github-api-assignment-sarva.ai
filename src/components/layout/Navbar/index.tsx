@@ -18,19 +18,15 @@ const Navbar = () => {
 
   useEffect(() => {
     const listener = function (this: Window, e: KeyboardEvent) {
-      console.log(e);
-    };
-
-    window.addEventListener("keydown", (e) => {
-      // console.log(e);
       if (e.key === "k" && e.ctrlKey) {
         e.preventDefault();
-        console.log("search");
         handleOpenModal();
       }
-    });
+    };
 
-    return window.removeEventListener("keydown", listener);
+    window.addEventListener("keydown", listener);
+
+    return () => window.removeEventListener("keydown", listener);
   }, []);
 
   function handleOpenModal() {

@@ -50,8 +50,6 @@ const PopularLanguagesChart = ({
     return chartData;
   }, [username]);
 
-  console.log(memoizedChartData);
-
   return <Doughnut data={memoizedChartData} />;
 };
 

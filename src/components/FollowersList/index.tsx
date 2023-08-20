@@ -20,7 +20,6 @@ const FollowersList: FC<{ username: string }> = ({ username }) => {
         .then((res) => res.data),
   });
 
-  console.log(followersQuery.data);
   if (!followersQuery.data) {
     return null;
   }
