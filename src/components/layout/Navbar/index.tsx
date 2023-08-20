@@ -16,6 +16,28 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    const listener = function (this: Window, e: KeyboardEvent) {
+      console.log(e);
+    };
+
+    window.addEventListener("keydown", (e) => {
+      // console.log(e);
+      if (e.key === "k" && e.ctrlKey) {
+        e.preventDefault();
+        console.log("search");
+        handleOpenModal();
+      }
+    });
+
+    return window.removeEventListener("keydown", listener);
+  }, []);
+
+  function handleOpenModal() {
+    //@ts-ignore
+    window.search_modal.showModal();
+  }
+
   return (
     <div className="navbar bg-base-300 max-h-16 px-4">
       <div className="flex-1">
@@ -31,7 +53,8 @@ const Navbar = () => {
             onClick={(e) => {
               e.preventDefault();
               // @ts-ignore
-              window.my_modal_2.showModal();
+              // window.search_modal.showModal();
+              handleOpenModal();
             }}
             readOnly
             type="text"
@@ -39,7 +62,7 @@ const Navbar = () => {
             className="input input-bordered w-24 md:w-auto"
           />
         </div>
-        <dialog id="my_modal_2" className="modal items-start">
+        <dialog id="search_modal" className="modal items-start">
           <form
             method="dialog"
             className="modal-box mt-4"
@@ -59,7 +82,7 @@ const Navbar = () => {
           </form>
         </dialog>
         {/* @ts-ignore */}
-        {/* <button onClick={() => window.my_modal_2.showModal()}>
+        {/* <button onClick={() => window.search_modal.showModal()}>
           view modal
         </button> */}
         {/* <div className="dropdown dropdown-end"> */}
