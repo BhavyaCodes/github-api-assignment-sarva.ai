@@ -124,7 +124,7 @@ export default function Home() {
                       d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
                     />
                   </svg>
-                  <a className="ml-1" href={data.blog}>
+                  <a className="ml-1 link link-accent" href={data.blog}>
                     {data.blog}
                   </a>
                 </div>
@@ -146,7 +146,7 @@ export default function Home() {
                     </g>
                   </svg>
                   <a
-                    className="ml-1"
+                    className="ml-1 link link-accent"
                     target="_blank"
                     href={`https://twitter.com/${data.twitter_username}`}
                   >
@@ -172,7 +172,10 @@ export default function Home() {
                     />
                   </svg>
 
-                  <a className="ml-1" href={`mailto:${data.email}`}>
+                  <a
+                    className="ml-2 link link-accent"
+                    href={`mailto:${data.email}`}
+                  >
                     {data.email}
                   </a>
                 </div>
