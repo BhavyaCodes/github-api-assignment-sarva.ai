@@ -1,17 +1,15 @@
 import React, { useMemo } from "react";
 
 import { Doughnut } from "react-chartjs-2";
-import { languageColors } from "@/assets/language-colors.ts";
+import { languageColors } from "@/assets/language-colors";
 import { ChartData } from "chart.js";
+import { Repository } from "@/types";
 
 const PopularLanguagesChart = ({
   username,
   repoData,
 }: {
-  repoData: {
-    id: number;
-    language: null | string;
-  }[];
+  repoData: Repository[];
   username: string;
 }) => {
   const languageCountData = useMemo(() => {
@@ -28,8 +26,6 @@ const PopularLanguagesChart = ({
 
     return result;
   }, [username]);
-
-  console.log(languageCountData);
 
   const memoizedChartData = useMemo(() => {
     const chartData: ChartData<"doughnut"> = {
@@ -56,11 +52,7 @@ const PopularLanguagesChart = ({
 
   console.log(memoizedChartData);
 
-  return (
-    <div>
-      <Doughnut data={memoizedChartData} />
-    </div>
-  );
+  return <Doughnut data={memoizedChartData} />;
 };
 
 export default PopularLanguagesChart;

@@ -32,3 +32,10 @@ export type UserProfile = {
   created_at: string;
   updated_at: string;
 };
+
+export type Repository = {
+  id: number;
+  language: null | string;
+  stargazers_count: number;
+  name: string;
+};

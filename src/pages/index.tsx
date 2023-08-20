@@ -3,9 +3,10 @@ import { Inter } from "next/font/google";
 import { useUserSearchText } from "@/context/userProfile.context";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { UserProfile } from "@/types";
+import { Repository, UserProfile } from "@/types";
 import loader from "@/assets/mona-loading-default.gif";
 import PopularLanguagesChart from "@/components/PopularLanguagesChart";
+import { PopularRepos } from "@/components/PopularRepos";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,7 @@ export default function Home() {
     retry: false,
   });
 
-  const reposQuery = useQuery<{ id: number; language: null | string }[]>({
+  const reposQuery = useQuery<Repository[]>({
     queryKey: ["users", userSearchText, "repo"],
     enabled: !!data?.login,
     queryFn: () =>
@@ -179,10 +180,16 @@ export default function Home() {
           </div>
           <div className="basis-9/12 grow">
             {reposQuery.data && (
-              <PopularLanguagesChart
-                repoData={reposQuery.data}
-                username={data.login}
-              />
+              <>
+                <PopularRepos
+                  repoData={reposQuery.data}
+                  username={data.login}
+                />
+                <PopularLanguagesChart
+                  repoData={reposQuery.data}
+                  username={data.login}
+                />
+              </>
             )}
           </div>
         </div>
