@@ -64,7 +64,7 @@ export default function UserProfilePage({
     return <Loading />;
   }
 
-  console.log(error);
+  // console.log(error);
   if (error) {
     return (
       <div
