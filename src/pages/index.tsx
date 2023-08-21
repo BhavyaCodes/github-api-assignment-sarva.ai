@@ -253,7 +253,7 @@ Home.getInitialProps = async (ctx: NextPageContext) => {
   const session = await getSession(ctx);
 
   //@ts-ignore
-  const login = (session?.user?.login as string) || "bhavyacodes";
+  const login = (session?.user?.login as string) || "torvalds";
 
   const initialUserData = await axios
     .get<UserProfile>(`https://api.github.com/users/${login}`, {
