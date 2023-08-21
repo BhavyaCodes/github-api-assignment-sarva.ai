@@ -43,7 +43,16 @@ const FollowersList: FC<{ username: string }> = ({ username }) => {
         ))}
 
       {newQuery.hasNextPage && (
-        <button onClick={() => newQuery.fetchNextPage()}>next</button>
+        <button
+          className="btn btn-xs btn-outline btn-secondary w-24"
+          onClick={() => newQuery.fetchNextPage()}
+        >
+          {newQuery.isFetching ? (
+            <span className="loading loading-infinity loading-xs"></span>
+          ) : (
+            "Fetch more"
+          )}
+        </button>
       )}
     </div>
   );

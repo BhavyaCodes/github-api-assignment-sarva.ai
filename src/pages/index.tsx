@@ -88,7 +88,7 @@ export default function Home({
     <div className="container mx-auto pt-8">
       <main className={` ${inter.className}`}>
         <div className="flex flex-col md:flex-row">
-          <div className="basis-3/12 shrink-0 flex-col flex px-4 ">
+          <div className="basis-3/12 shrink-0 flex-col flex px-2 md:px-4 mb-6 ">
             <div className="flex justify-center">
               <img
                 src={data.avatar_url}
@@ -205,8 +205,9 @@ export default function Home({
               )}
             </div>
           </div>
-          <div className="basis-9/12 grow">
-            {/* {data.login && <FollowersList username={data.login} />} */}
+          <div className="basis-9/12 grow px-2">
+            <h2 className="text-xl mb-1">Followers</h2>
+            {data.login && <FollowersList username={data.login} />}
             {/* {data.login && <RepositoryList username={data.login} />} */}
 
             {/* {reposQuery.data && (
