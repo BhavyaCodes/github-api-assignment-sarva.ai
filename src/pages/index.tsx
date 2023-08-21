@@ -211,19 +211,31 @@ export default function Home({
             <h2 className="text-xl mb-1">Repositories</h2>
             {data.login && <RepositoryList username={data.login} />}
 
-            {/* {reposQuery.data && (
-              <>
-                <PopularRepos
-                  repoData={reposQuery.data}
-                  username={data.login}
-                />
-                <PopularLanguagesChart
-                  repoData={reposQuery.data}
-                  username={data.login}
-                />
-              </>
-            )} */}
-            {/* <ContributionBreakUp /> */}
+            {reposQuery.data && (
+              <div className="flex flex-col flex-wrap md:flex-row mb-4">
+                <div className="basis-1/2 flex-col justify-between flex mt-4 ">
+                  <h2 className="text-xl mb-1">Most Starred Repositories</h2>
+
+                  <PopularRepos
+                    repoData={reposQuery.data}
+                    username={data.login}
+                  />
+                </div>
+                <div className="basis-1/2 flex-col justify-between flex mt-4 ">
+                  <h2 className="text-xl mb-1">Most Popular languages</h2>
+
+                  <PopularLanguagesChart
+                    repoData={reposQuery.data}
+                    username={data.login}
+                  />
+                </div>
+                <div className="basis-1/2 flex-col justify-between flex mt-4 ">
+                  <h2 className="text-xl mb-1">Contribution breakdown</h2>
+
+                  <ContributionBreakUp />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </main>
