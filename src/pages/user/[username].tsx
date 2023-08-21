@@ -2,7 +2,7 @@
 import { Inter } from "next/font/google";
 
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Repository, UserProfile } from "@/types";
 import loader from "@/assets/mona-loading-default.gif";
 
@@ -68,12 +68,14 @@ export default function UserProfilePage({
     );
   }
 
+  console.log(error);
   if (error) {
     return (
       <div
         className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
       >
-        Error
+        {/* @ts-ignore */}
+        Error {error?.response?.status}
       </div>
     );
   }
@@ -384,14 +386,24 @@ export default function UserProfilePage({
 
 UserProfilePage.getInitialProps = async (ctx: NextPageContext) => {
   const username = ctx.query.username;
-  const initialUserData = await axios
-    .get<UserProfile>(`https://api.github.com/users/${username}`, {
-      headers: {
-        Authorization: "Bearer " + process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
-      },
-    })
-    .then((res) => res.data);
-  return {
-    userProfile: initialUserData,
-  };
+  try {
+    const initialUserData = await axios
+      .get<UserProfile>(`https://api.github.com/users/${username}`, {
+        headers: {
+          Authorization: "Bearer " + process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
+        },
+      })
+      .then((res) => res.data);
+    // .catch((err: AxiosError) => console.log(err.response?.status));
+    return {
+      userProfile: initialUserData,
+    };
+  } catch (error) {
+    // console.log((error as AxiosError).response?.status);
+    return {
+      // error: (error as AxiosError).response?.status,
+      error: 404,
+      // userProfile: initialUserData,
+    };
+  }
 };
