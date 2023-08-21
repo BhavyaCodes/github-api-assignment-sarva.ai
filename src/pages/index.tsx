@@ -233,6 +233,7 @@ Home.getInitialProps = async (ctx: NextPageContext) => {
   const session = await getSession(ctx);
   console.log(session);
 
+  //@ts-ignore
   const login = (session?.user?.login as string) || "bhavyacodes";
 
   const initialUserData = await axios
