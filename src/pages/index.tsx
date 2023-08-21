@@ -16,16 +16,23 @@ import { getSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ userProfile }: { userProfile: UserProfile }) {
+export default function Home({
+  userProfile,
+  login,
+}: {
+  userProfile: UserProfile;
+  login: string;
+}) {
   // const [userSearchText] = useUserSearchText();
 
   const { data, error, isFetching, isLoading } = useQuery<UserProfile>({
     initialData: userProfile,
-    queryKey: ["users", "bhavyacodes"],
+    queryKey: ["users", "login"],
+    staleTime: Infinity,
     // enabled: !!userSearchText,
     queryFn: () =>
       axios
-        .get(`https://api.github.com/users/bhavyacodes`, {
+        .get(`https://api.github.com/users/${login}`, {
           headers: {
             Authorization: "Bearer " + process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
           },
@@ -36,7 +43,7 @@ export default function Home({ userProfile }: { userProfile: UserProfile }) {
   });
 
   const reposQuery = useQuery<Repository[]>({
-    queryKey: ["users", "bhavyacodes", "repo"],
+    queryKey: ["users", login, "repo"],
     enabled: !!data?.login,
     queryFn: () =>
       axios
@@ -224,15 +231,19 @@ export default function Home({ userProfile }: { userProfile: UserProfile }) {
 
 Home.getInitialProps = async (ctx: NextPageContext) => {
   const session = await getSession(ctx);
+  console.log(session);
+
+  const login = (session?.user?.login as string) || "bhavyacodes";
 
   const initialUserData = await axios
-    .get<UserProfile>(`https://api.github.com/users/bhavyacodes`, {
+    .get<UserProfile>(`https://api.github.com/users/${login}`, {
       headers: {
         Authorization: "Bearer " + process.env.NEXT_PUBLIC_GITHUB_API_TOKEN,
       },
     })
     .then((res) => res.data);
   return {
+    login,
     userProfile: initialUserData,
   };
 };

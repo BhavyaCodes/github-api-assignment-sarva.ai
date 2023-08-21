@@ -6,18 +6,24 @@ export const authOptions: AuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
+      profile(profile) {
+        return {
+          login: profile.login,
+          id: profile.id.toString(),
+          name: profile.name ?? profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+        };
+      },
     }),
     // ...add more providers here
   ],
   callbacks: {
     session: async ({ session, token }) => {
-      // console.log("@@@@@@@@@@@@");
-      // console.log(token);
       session.user = { ...token };
       return session;
     },
     async jwt({ token, user }) {
-      // console.log({ ...token, ...user });
       return { ...token, ...user };
       // {
       //   name: 'Bhavya Tomar',
