@@ -14,6 +14,7 @@ import { NextPageContext } from "next";
 import ContributionBreakUp from "@/components/ContributionBreakUp";
 
 import { getSession } from "next-auth/react";
+import { Loading } from "@/components/Loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -64,11 +65,7 @@ export default function Home({
   });
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center">
-        <img src={loader.src} className="w-12 my-6" alt="loading animation" />
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) {
@@ -207,35 +204,43 @@ export default function Home({
             </div>
           </div>
           <div className="basis-9/12 grow px-2">
-            <h2 className="text-xl mb-1">Followers</h2>
-            {data.login && <FollowersList username={data.login} />}
-            <h2 className="text-xl mb-1">Repositories</h2>
-            {data.login && <RepositoryList username={data.login} />}
+            {reposQuery.isLoading ? (
+              <Loading />
+            ) : (
+              <>
+                <h2 className="text-xl mb-1">Followers</h2>
+                {data.login && <FollowersList username={data.login} />}
+                <h2 className="text-xl mb-1">Repositories</h2>
+                {data.login && <RepositoryList username={data.login} />}
 
-            {reposQuery.data && (
-              <div className="flex flex-col flex-wrap md:flex-row mb-4">
-                <div className="basis-1/2 flex-col justify-between flex mt-4 ">
-                  <h2 className="text-xl mb-1">Most Starred Repositories</h2>
+                {reposQuery.data && (
+                  <div className="flex flex-col flex-wrap md:flex-row mb-4">
+                    <div className="basis-1/2 flex-col justify-between flex mt-4 ">
+                      <h2 className="text-xl mb-1">
+                        Most Starred Repositories
+                      </h2>
 
-                  <PopularRepos
-                    repoData={reposQuery.data}
-                    username={data.login}
-                  />
-                </div>
-                <div className="basis-1/2 flex-col justify-between flex mt-4 ">
-                  <h2 className="text-xl mb-1">Most Popular languages</h2>
+                      <PopularRepos
+                        repoData={reposQuery.data}
+                        username={data.login}
+                      />
+                    </div>
+                    <div className="basis-1/2 flex-col justify-between flex mt-4 ">
+                      <h2 className="text-xl mb-1">Most Popular languages</h2>
 
-                  <PopularLanguagesChart
-                    repoData={reposQuery.data}
-                    username={data.login}
-                  />
-                </div>
-                <div className="basis-1/2 flex-col justify-between flex mt-4 ">
-                  <h2 className="text-xl mb-1">Contribution breakdown</h2>
+                      <PopularLanguagesChart
+                        repoData={reposQuery.data}
+                        username={data.login}
+                      />
+                    </div>
+                    <div className="basis-1/2 flex-col justify-between flex mt-4 ">
+                      <h2 className="text-xl mb-1">Contribution breakdown</h2>
 
-                  <ContributionBreakUp />
-                </div>
-              </div>
+                      <ContributionBreakUp />
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
