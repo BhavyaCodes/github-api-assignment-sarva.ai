@@ -208,7 +208,8 @@ export default function Home({
           <div className="basis-9/12 grow px-2">
             <h2 className="text-xl mb-1">Followers</h2>
             {data.login && <FollowersList username={data.login} />}
-            {/* {data.login && <RepositoryList username={data.login} />} */}
+            <h2 className="text-xl mb-1">Repositories</h2>
+            {data.login && <RepositoryList username={data.login} />}
 
             {/* {reposQuery.data && (
               <>

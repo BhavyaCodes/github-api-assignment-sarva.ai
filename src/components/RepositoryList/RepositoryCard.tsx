@@ -12,7 +12,7 @@ export const RepositoryCard: FC<Repository> = ({
   description,
 }) => {
   return (
-    <div className="rounded border-2 border-base-200 m-2 p-2">
+    <div className="rounded border-2 border-base-200 my-2 p-2">
       <a
         target="_blank"
         className="link link-accent font-semibold"

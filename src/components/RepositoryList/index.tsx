@@ -47,8 +47,15 @@ const RepositoryList: FC<{ username: string }> = ({ username }) => {
         ))}
 
       {inifiniteRepositoryQuery.hasNextPage && (
-        <button onClick={() => inifiniteRepositoryQuery.fetchNextPage()}>
-          Fetch More
+        <button
+          className="btn btn-xs btn-outline btn-secondary w-24 mb-2"
+          onClick={() => inifiniteRepositoryQuery.fetchNextPage()}
+        >
+          {inifiniteRepositoryQuery.isFetching ? (
+            <span className="loading loading-infinity loading-xs"></span>
+          ) : (
+            "Fetch more"
+          )}
         </button>
       )}
     </div>
