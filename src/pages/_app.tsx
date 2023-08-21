@@ -43,15 +43,15 @@ export default function App({
     defaultOptions: { queries: { staleTime: 60000 } },
   });
   return (
-    <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <SessionProvider session={session}>
         <ReactQueryDevtools initialIsOpen={false} />
         <UserSearchTextProvider>
           <Layout>
             <Component {...pageProps} />
           </Layout>
         </UserSearchTextProvider>
-      </QueryClientProvider>
-    </SessionProvider>
+      </SessionProvider>
+    </QueryClientProvider>
   );
 }

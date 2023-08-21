@@ -97,7 +97,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+              className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-40"
             >
               <button
                 onClick={() => signOut()}
@@ -116,13 +116,13 @@ const Navbar = () => {
         <dialog id="search_modal" className="modal items-start">
           <form
             method="dialog"
-            className="modal-box mt-4"
+            className="modal-box mt-4 p-2 md:p-4"
             onSubmit={handleSubmit}
           >
-            <div className="join">
+            <div className="join w-full flex">
               <input
                 type="text"
-                className="input input-bordered join-item w-24 md:w-auto"
+                className="input input-bordered join-item shrink grow w-auto"
                 ref={inputRef}
                 placeholder="Search username"
               />
@@ -132,7 +132,7 @@ const Navbar = () => {
               </button> */}
               <div className="indicator">
                 <button type="submit" className="btn join-item">
-                  Search
+                  <Lens />
                 </button>
               </div>
             </div>
