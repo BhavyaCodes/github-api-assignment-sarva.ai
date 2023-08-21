@@ -1,18 +1,30 @@
-import { useQuery } from "@tanstack/react-query";
 import { FormEventHandler, useEffect, useRef } from "react";
-import axios from "axios";
 
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
+const Lens = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      className="w-5 h-5"
+    >
+      <path
+        fillRule="evenodd"
+        d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
 const Navbar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { data: session, status } = useSession();
-
-  console.log(session);
-  // const [, setSearchText] = useUserSearchText();
 
   const handleSubmit: FormEventHandler = (e) => {
     const text = inputRef.current?.value;
@@ -44,7 +56,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-300 max-h-16 px-4">
-      <div className="flex-1">
+      <div className="flex-1 hidden md:block">
         {/* <a className="btn btn-ghost normal-case text-xl">daisyUI</a> */}
         <Link href={"/"}>
           <div className="w-10 rounded-full">
@@ -52,38 +64,32 @@ const Navbar = () => {
           </div>
         </Link>
       </div>
-      <div className="flex gap-2 items-end">
-        <div className="form-control">
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              // @ts-ignore
-              // window.search_modal.showModal();
-              handleOpenModal();
-            }}
-            className="input input-bordered w-24 md:w-auto flex items-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-5 h-5"
+      <div className="grow md:grow-0 gap-2 items-center flex justify-between">
+        <div className="form-control ">
+          <div className="hidden md:block">
+            <div
+              onClick={() => {
+                handleOpenModal();
+              }}
+              className="input input-bordered w-24 md:w-auto flex items-center"
             >
-              <path
-                fillRule="evenodd"
-                d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                clipRule="evenodd"
-              />
-            </svg>
+              <Lens />
 
-            <p className="ml-2">Search </p>
-            <code className="text-xs ml-2 bg-base-300 p-1 rounded">
-              ctrl + k
-            </code>
+              <p className="ml-2">Search </p>
+              <code className="text-xs ml-2 bg-base-300 p-1 rounded">
+                ctrl + k
+              </code>
+            </div>
+          </div>
+          <div
+            className="flex items-center md:hidden"
+            onClick={() => handleOpenModal()}
+          >
+            <Lens />
           </div>
         </div>
         {session ? (
-          <div className="dropdown dropdown-end mb-1">
+          <div className="dropdown dropdown-end mt-1">
             <div tabIndex={0} className="avatar ml-2 cursor-pointer">
               <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ">
                 {session.user?.image && <img src={session.user?.image} />}

@@ -207,7 +207,7 @@ export default function Home({
           </div>
           <div className="basis-9/12 grow">
             {/* {data.login && <FollowersList username={data.login} />} */}
-            {data.login && <RepositoryList username={data.login} />}
+            {/* {data.login && <RepositoryList username={data.login} />} */}
 
             {/* {reposQuery.data && (
               <>
@@ -221,7 +221,7 @@ export default function Home({
                 />
               </>
             )} */}
-            <ContributionBreakUp />
+            {/* <ContributionBreakUp /> */}
           </div>
         </div>
       </main>
