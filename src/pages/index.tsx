@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Inter } from "next/font/google";
 
 import { useQuery } from "@tanstack/react-query";
