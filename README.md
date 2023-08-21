@@ -4,7 +4,7 @@
 
 - node (tested on v18.17.1)
 - pnpm
-- env variables for github api, github oauth see /.env.example
+- env variables for github api, github oauth see <a href="./.env.example"><code>./.env.example</code></a>
 
 1. clone this repo
 
