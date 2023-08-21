@@ -4,10 +4,14 @@ import axios from "axios";
 
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  console.log(session);
   // const [, setSearchText] = useUserSearchText();
 
   const handleSubmit: FormEventHandler = (e) => {
@@ -48,7 +52,7 @@ const Navbar = () => {
           </div>
         </Link>
       </div>
-      <div className="flex-none gap-2">
+      <div className="flex gap-2 items-end">
         <div className="form-control">
           <div
             onClick={(e) => {
@@ -78,6 +82,31 @@ const Navbar = () => {
             </code>
           </div>
         </div>
+        {session ? (
+          <div className="dropdown dropdown-end mb-1">
+            <div tabIndex={0} className="avatar ml-2 cursor-pointer">
+              <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ">
+                {session.user?.image && <img src={session.user?.image} />}
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+            >
+              <button
+                onClick={() => signOut()}
+                className="btn btn-sm btn-error"
+              >
+                logout
+              </button>
+              <span className="p-2">{session.user?.name}</span>
+            </ul>
+          </div>
+        ) : (
+          <button onClick={() => signIn()} className="btn btn-accent">
+            Sign in
+          </button>
+        )}
         <dialog id="search_modal" className="modal items-start">
           <form
             method="dialog"

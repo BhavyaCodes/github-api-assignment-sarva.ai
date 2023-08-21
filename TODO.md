@@ -2,7 +2,7 @@
   - [x] /user/[username] route
   - [x] index page
 - [ ] css
-- [ ] github auth - display logged in user's profile
+- [x] github auth - display logged in user's profile
 - [x] show contribution distribution
 
 <!-- {
