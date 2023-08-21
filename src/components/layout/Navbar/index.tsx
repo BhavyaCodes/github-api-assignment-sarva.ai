@@ -81,6 +81,7 @@ const Navbar = () => {
               </code>
             </div>
           </div>
+
           <div
             className="flex items-center md:hidden"
             onClick={() => handleOpenModal()}
@@ -88,31 +89,50 @@ const Navbar = () => {
             <Lens />
           </div>
         </div>
-        {session ? (
-          <div className="dropdown dropdown-end mt-1">
-            <div tabIndex={0} className="avatar ml-2 cursor-pointer">
-              <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ">
-                {session.user?.image && <img src={session.user?.image} />}
-              </div>
-            </div>
-            <ul
-              tabIndex={0}
-              className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-40"
+        <div className="flex items-center">
+          <Link href="/">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 mr-2 md:hidden stroke-emerald-600"
             >
-              <button
-                onClick={() => signOut()}
-                className="btn btn-sm btn-error"
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+              />
+            </svg>
+          </Link>
+
+          {session ? (
+            <div className="dropdown dropdown-end mt-1">
+              <div tabIndex={0} className="avatar ml-2 cursor-pointer">
+                <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ">
+                  {session.user?.image && <img src={session.user?.image} />}
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-40"
               >
-                logout
-              </button>
-              <span className="p-2">{session.user?.name}</span>
-            </ul>
-          </div>
-        ) : (
-          <button onClick={() => signIn()} className="btn btn-accent">
-            Sign in
-          </button>
-        )}
+                <button
+                  onClick={() => signOut()}
+                  className="btn btn-sm btn-error"
+                >
+                  logout
+                </button>
+                <span className="p-2">{session.user?.name}</span>
+              </ul>
+            </div>
+          ) : (
+            <button onClick={() => signIn()} className="btn btn-accent">
+              Sign in
+            </button>
+          )}
+        </div>
         <dialog id="search_modal" className="modal items-start">
           <form
             method="dialog"
