@@ -34,13 +34,14 @@ const FollowersList: FC<{ username: string }> = ({ username }) => {
     return null;
   }
 
+  const flatData = newQuery.data.pages.flatMap((data) => data);
+
   return (
-    <div className="h-60 overflow-auto">
-      {newQuery.data.pages
-        .flatMap((data) => data)
-        .map((follower) => (
-          <Follower key={follower.id} follower={follower} />
-        ))}
+    <div className="max-h-60 overflow-auto">
+      {flatData.map((follower) => (
+        <Follower key={follower.id} follower={follower} />
+      ))}
+      {flatData.length === 0 && <p>User has no followers 🥲</p>}
 
       {newQuery.hasNextPage && (
         <button

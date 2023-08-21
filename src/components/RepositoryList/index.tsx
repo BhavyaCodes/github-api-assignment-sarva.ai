@@ -17,7 +17,7 @@ const RepositoryList: FC<{ username: string }> = ({ username }) => {
           },
           params: {
             page: pageNumber,
-            per_page: 5,
+            per_page: 100,
             sort: "created",
             direction: "desc",
           },
@@ -38,13 +38,14 @@ const RepositoryList: FC<{ username: string }> = ({ username }) => {
     return null;
   }
 
+  const flatData = inifiniteRepositoryQuery.data.pages.flatMap((data) => data);
+
   return (
     <div className="h-60 overflow-auto">
-      {inifiniteRepositoryQuery.data.pages
-        .flatMap((data) => data)
-        .map((repo) => (
-          <RepositoryCard key={repo.id} {...repo} />
-        ))}
+      {flatData.map((repo) => (
+        <RepositoryCard key={repo.id} {...repo} />
+      ))}
+      {flatData.length === 0 && <p>User has no public repostories 🥲</p>}
 
       {inifiniteRepositoryQuery.hasNextPage && (
         <button
