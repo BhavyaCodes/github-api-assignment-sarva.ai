@@ -87,7 +87,7 @@ const ContributionBreakUp = () => {
           },
           scales: {
             r: {
-              backgroundColor: "#fff",
+              backgroundColor: "#999",
               // grid: {
               //   color: "green",
               // },
