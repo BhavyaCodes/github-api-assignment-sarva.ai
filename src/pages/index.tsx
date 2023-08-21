@@ -87,13 +87,13 @@ export default function Home({
   return (
     <div className="container mx-auto pt-8">
       <main className={` ${inter.className}`}>
-        <div className="flex">
-          <div className="basis-3/12 shrink-0 flex-col flex px-4   ">
-            <div className="flex items-center">
+        <div className="flex flex-col md:flex-row">
+          <div className="basis-3/12 shrink-0 flex-col flex px-4 ">
+            <div className="flex justify-center">
               <img
                 src={data.avatar_url}
                 alt="avatar"
-                className="w-full rounded-full"
+                className="w-4/5 rounded-full mb-4"
               />
             </div>
             <div>
